@@ -104,7 +104,7 @@ const PostDetails = () => {
                     <button onClick={handleLike} className="like-button">
                         💪
                     </button>
-                    <span>{post.likes || 0} gains</span>
+                    <span>{post.likes || 0} {post.likes === 1 ? 'gain' : 'gains'}</span>
                 </div>
 
                 <div className="comments-section">

@@ -24,7 +24,7 @@ const Card = ({ id, createdAt, title, likes }) => {
             <div className="card-content">
                 <p className="card-time">{timeAgo(createdAt)}</p>
                 <h2 className="card-title">{title}</h2>
-                <p className="card-likes">{likes || 0} gains</p>
+                <p className="card-likes">{likes || 0} {likes === 1 ? 'gain' : 'gains'}</p>
             </div>
         </Link>
     );

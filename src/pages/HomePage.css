@@ -30,7 +30,7 @@
 
 .filter-button {
     background-color: #e9ecef;
-    color: #495057;
+    color: #757575;
     border: 1px solid #ced4da;
     padding: 12px 24px;
     border-radius: 20px;
@@ -84,8 +84,8 @@
     border: none;
     outline: none;
     background-color: transparent;
-    font-size: 1rem;
-    color: #333;
+    font-size: 0.9rem;
+    color: #495057;
     
     /* Collapsed State */
     width: 0;
@@ -118,5 +118,26 @@
 }
 
 .search-toggle-button svg {
-    stroke: #495057;
+    stroke: #757575;
+}
+
+.loading-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

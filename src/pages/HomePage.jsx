@@ -72,7 +72,13 @@ const HomePage = () => {
     };
 
     if (loading && posts.length === 0) {
-        return <p style={{ textAlign: 'center', marginTop: '5rem', color: "gray" }}>Loading posts...</p>;    
+        return (
+            <div className="loading-icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="loading-icon">
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                </svg>
+            </div>
+        );
     }
 
     if (error) {
@@ -102,15 +108,14 @@ const HomePage = () => {
                             type="text"
                             id="search-input"
                             name="search"
-                            placeholder="Search..."
+                            placeholder="Search by title..."
                             className="search-input"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                         <button type="button" onClick={toggleSearch} className="search-toggle-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
                             </svg>
                         </button>
                     </div>
