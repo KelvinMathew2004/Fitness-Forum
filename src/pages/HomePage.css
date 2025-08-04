@@ -19,7 +19,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
@@ -28,11 +28,11 @@
     color: #6c757d;
 }
 
-.filter-controls button {
+.filter-button {
     background-color: #e9ecef;
     color: #495057;
-    border: 1px solid #dee2e6;
-    padding: 8px 16px;
+    border: 1px solid #ced4da;
+    padding: 12px 24px;
     border-radius: 20px;
     font-size: 0.9rem;
     cursor: pointer;
@@ -50,37 +50,73 @@
     font-weight: bold;
 }
 
-.search-container {
+/* In HomePage.css or a global stylesheet like index.css */
+
+/* --- The Main Widget Container (The Flex Parent) --- */
+.search-widget {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: flex-end; /* NEW: Pushes content to the right */
+    height: 44px;
+    overflow: hidden;
+
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    
+    /* Collapsed State */
+    width: 44px;
+
+    border-radius: 22px;
+    transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
 }
 
-/* Update the search form to align with the new layout */
-.search-form {
-    display: flex;
+/* --- The Widget's Expanded State --- */
+.search-widget.expanded {
+    width: 300px;
+    justify-content: flex-start; /* UPDATE: Align content to the left when expanded */
 }
 
-/* NEW: Style for the grey circle button */
-.search-icon-button {
+
+/* --- The Search Input (Flex Item 1) --- */
+.search-input {
+    flex-grow: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 1rem;
+    color: #333;
+    
+    /* Collapsed State */
+    width: 0;
+    padding: 0;
+    opacity: 0;
+    
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* --- The Input's Expanded State --- */
+.search-widget.expanded .search-input {
+    opacity: 1;
+    padding: 0 10px 0 20px;
+}
+
+
+/* --- The Icon Button (Flex Item 2) --- */
+.search-toggle-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
-    background-color: #e9ecef; /* A nice light grey */
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
     border: none;
-    border-radius: 50%; /* Makes it a circle */
+    background-color: transparent;
+    border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.2s;
+    padding: 0;
 }
 
-/* NEW: A slightly darker grey on hover */
-.search-icon-button:hover {
-    background-color: #dee2e6;
-}
-
-/* NEW: Style for the SVG icon inside the button */
-.search-icon-button svg {
-    stroke: #495057; /* Dark grey color for the icon lines */
+.search-toggle-button svg {
+    stroke: #495057;
 }
