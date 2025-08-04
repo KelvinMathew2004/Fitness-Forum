@@ -1,19 +1,25 @@
-import { useRoutes } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import '../App.css';
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import './Navbar.css';
 
-const NavBar = () => {
+const Navbar = () => {
     return (
-        <div className="sidenav">
-            <div>
-                <Link to="/"><h3>FitTip</h3></Link>
-                <div className="sidenav-links">
-                    {/* <Link to="/new"><h3>Create a Crewmate!</h3></Link>
-                    <Link to="/gallery"><h3>Crewmate Gallery</h3></Link> */}
+        <nav className="navbar">
+            <div className="navbar-container">
+                <Link to="/" className="navbar-logo">
+                    FitnessForum
+                </Link>
+                <div className="nav-links">
+                    <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                        Home
+                    </NavLink>
+                    <NavLink to="/new" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                        Create New Post
+                    </NavLink>
                 </div>
             </div>
-        </div>
-    )
-}
+        </nav>
+    );
+};
 
-export default NavBar;
+export default Navbar;
