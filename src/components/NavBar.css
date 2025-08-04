@@ -1,9 +1,12 @@
 .navbar {
-    width: 100wh;
-    background-color: black;
-    padding: 0 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    border-bottom: 1px solid #e9ecef;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 1);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-container {
@@ -13,7 +16,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
 }
 
 .navbar-logo {

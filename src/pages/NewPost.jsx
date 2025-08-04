@@ -40,7 +40,6 @@ const NewPost = () => {
     return (
         <div className="NewPost">
             <div className="form-container">
-                <h1>Create a New Post</h1>
                 <form onSubmit={createPost}>
                     <div className="form-group">
                         <label htmlFor="title">Title</label>

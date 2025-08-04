@@ -5,10 +5,6 @@
     align-items: flex-start;
     height: 100%;
     background-color: #F2F2F2;
-
-    overflow-y: scroll;
-
-    transition: transform 0.3s ease;
 }
 
 .post-gallery {
@@ -52,4 +48,39 @@
     color: white;
     border-color: black;
     font-weight: bold;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Update the search form to align with the new layout */
+.search-form {
+    display: flex;
+}
+
+/* NEW: Style for the grey circle button */
+.search-icon-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #e9ecef; /* A nice light grey */
+    border: none;
+    border-radius: 50%; /* Makes it a circle */
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* NEW: A slightly darker grey on hover */
+.search-icon-button:hover {
+    background-color: #dee2e6;
+}
+
+/* NEW: Style for the SVG icon inside the button */
+.search-icon-button svg {
+    stroke: #495057; /* Dark grey color for the icon lines */
 }
