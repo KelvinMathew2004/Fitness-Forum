@@ -6,7 +6,16 @@
     min-height: 80vh;
 }
 
+form {
+    width: 100%;
+    max-width: 800px;
+}
+
 .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: #ffffff;
     padding: 2.5rem;
     border-radius: 12px;
@@ -22,6 +31,9 @@
 }
 
 .form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     margin-bottom: 1.5rem;
 }
 
@@ -34,7 +46,10 @@
 
 .form-group input,
 .form-group textarea {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 24px);
+
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -54,7 +69,7 @@ button[type="submit"] {
     padding: 15px;
     border: none;
     border-radius: 8px;
-    background-color: #007bff;
+    background-color: black;
     color: white;
     font-size: 1.1rem;
     font-weight: bold;
@@ -63,7 +78,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: rgb(75, 75, 75);
 }
 
 button[type="submit"]:disabled {

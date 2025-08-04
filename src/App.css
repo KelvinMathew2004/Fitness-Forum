@@ -1,68 +1,15 @@
-.App{
+.App-layout {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 100wh;
-  flex-grow: 1;
-  background-color: #ffffff;
-  overflow-y: scroll;
-}
-
-/* SIDENAV STYLING */
-
-.sidenav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-  width: 100%;
-  height: 75px;
-  background-color: #000000;
-  color: #ffffff;
-  padding: 20px;
-  box-sizing: border-box; 
-  z-index: 10;
-  transition: transform 0.3s ease;
-}
-
-.SideNav:hover {
-  transform: perspective(1000px) rotateY(-5deg) scale(1.02);
-}
-
-.sidenav-links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 2rem;
-  margin: 2rem;
-}
-
-.sidenav-links a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 18px;
-  transition: all 0.3s ease;
-  text-shadow: #121212 0px 0px 10px;
-}
-
-.sidenav-links h3 {
-  margin: 0;
-}
-
-.sidenav-links a:hover {
-  color: #ffcc00;
-}
-
-.sidenav-image {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   flex-grow: 0;
-  width: 70%;
-  height: auto;
-  margin-bottom: 20px;
-  filter: drop-shadow(10px 5px 5px rgba(0, 0, 0, 0.3));
+  width: 100vw;
+  height: 100vh;
+}
+
+.App-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  
+  padding: 2rem; 
+  background-color: #F2F2F2;
 }

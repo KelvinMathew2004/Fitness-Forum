@@ -31,34 +31,34 @@ const HomePage = () => {
 
         fetchPosts();
     }, [sortBy]); 
-    
+
     if (loading) {
-        return <p>Loading posts...</p>;
+        return <p style={{ textAlign: 'center', marginTop: '5rem', color: "gray" }}>Loading posts...</p>;    
     }
 
     if (error) {
-        return <p className="error-message">{error}</p>;
+        return <p style={{ textAlign: 'center', marginTop: '5rem', color: "gray" }} className="error-message">{error}</p>;
     }
 
     return (
         <div className="HomePage">
-            <div className="filter-controls">
-                <span>Sort by:</span>
-                <button
-                    onClick={() => setSortBy('created_at')}
-                    className={sortBy === 'created_at' ? 'active' : ''}
-                >
-                    Newest
-                </button>
-                <button
-                    onClick={() => setSortBy('likes')}
-                    className={sortBy === 'likes' ? 'active' : ''}
-                >
-                    Most Popular
-                </button>
-            </div>
-
             <main className="post-gallery">
+                <div className="filter-controls">
+                    <span>Sort by:</span>
+                    <button
+                        onClick={() => setSortBy('created_at')}
+                        className={sortBy === 'created_at' ? 'active' : ''}
+                    >
+                        Newest
+                    </button>
+                    <button
+                        onClick={() => setSortBy('likes')}
+                        className={sortBy === 'likes' ? 'active' : ''}
+                    >
+                        Most Popular
+                    </button>
+                </div>
+
                 {posts && posts.length > 0 ? (
                     posts.map((post) => (
                         <Card

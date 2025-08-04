@@ -25,10 +25,12 @@ const App = () => {
   ]);
 
   return (
-    <>
+    <div className="App-layout">
       <NavBar />
+      <main className="App-content">
         {element}
-    </>
+      </main>
+    </div>
   )
 }
 
