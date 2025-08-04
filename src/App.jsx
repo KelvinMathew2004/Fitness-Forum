@@ -15,7 +15,7 @@ const App = () => {
       element:<HomePage />
     },
     {
-      path:"/details/:id",
+      path:"/post/:id",
       element: <PostDetails />
     },
     {

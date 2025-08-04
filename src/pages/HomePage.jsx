@@ -1,66 +1,80 @@
-import { useState, useEffect } from 'react'
-import { supabase } from '../client'
-import { Link } from 'react-router-dom'
-import Card from '../components/Card'
+import { useState, useEffect } from 'react';
+import { supabase } from '../client';
+import Card from '../components/Card';
+import './HomePage.css';
 
-const HomePage = (props) => {
-
-    const [crewmates, setCrewmates] = useState([])
-    const [loading, setLoading] = useState(true)
+const HomePage = () => {
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [sortBy, setSortBy] = useState('created_at');
 
     useEffect(() => {
-        // READ all post from table
-        const fetchCrewmates = async () => {
-            const {data} = await supabase
-                .from('Crewmates')
+        const fetchPosts = async () => {
+            setLoading(true);
+
+            const { data, error } = await supabase
+                .from('Posts')
                 .select()
-                .order('created_at', { ascending: false })
+                .order(sortBy, { ascending: false });
 
-            // set state of posts
-            setCrewmates(data)
-            setLoading(false)
-        }
-        fetchCrewmates()
-    }, [props])
+            if (error) {
+                console.error("Error fetching posts: ", error);
+                setError("Could not fetch posts. Please try again later.");
+                setPosts([]);
+            } else {
+                setPosts(data);
+            }
+            
+            setLoading(false);
+        };
 
-    const counts = crewmates.reduce((acc, crewmate) => {
-        if (crewmate.type === 'imposter') {
-            acc.imposters++;
-        } else {
-            acc.crewmates++;
-        }
-        return acc;
-    }, { crewmates: 0, imposters: 0 });
-
-    if (loading) return <p>Loading...</p>
+        fetchPosts();
+    }, [sortBy]); 
     
-    return (
-        <div className="CrewmateGallery">
-            <h1>Your Crewmate Gallery!</h1>
-            <div className="gallery-summary">
-                <h3>Crewmates: <span className="count-value">{counts.crewmates}</span></h3>
-                <h3>Imposters: <span className="count-value">{counts.imposters}</span></h3>
-            </div>
-            <div className="gallery">
-                {
-                    crewmates && crewmates.length > 0 ?
-                    [...crewmates]
-                    .sort((a, b) => a.id - b.id)
-                    .map((crewmate,index) => 
-                        <Card 
-                            key={crewmate.id}
-                            id={crewmate.id} 
-                            name={crewmate.name}
-                            speed={crewmate.speed}
-                            color={crewmate.color}
-                            type={crewmate.type}
-                        />
-                    ) : <h2>You haven't made a crewmate yet!</h2>
-                }
-            </div>
-            <Link to="/new"><button className="create-crewmate">Create one here!</button></Link>
-        </div>  
-    )
-}
+    if (loading) {
+        return <p>Loading posts...</p>;
+    }
 
-export default HomePage
+    if (error) {
+        return <p className="error-message">{error}</p>;
+    }
+
+    return (
+        <div className="HomePage">
+            <div className="filter-controls">
+                <span>Sort by:</span>
+                <button
+                    onClick={() => setSortBy('created_at')}
+                    className={sortBy === 'created_at' ? 'active' : ''}
+                >
+                    Newest
+                </button>
+                <button
+                    onClick={() => setSortBy('likes')}
+                    className={sortBy === 'likes' ? 'active' : ''}
+                >
+                    Most Popular
+                </button>
+            </div>
+
+            <main className="post-gallery">
+                {posts && posts.length > 0 ? (
+                    posts.map((post) => (
+                        <Card
+                            key={post.id}
+                            id={post.id}
+                            createdAt={post.created_at}
+                            title={post.title}
+                            likes={post.likes}
+                        />
+                    ))
+                ) : (
+                    <h2>No posts found. Try creating one!</h2>
+                )}
+            </main>
+        </div>
+    );
+};
+
+export default HomePage;

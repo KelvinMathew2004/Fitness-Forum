@@ -1,103 +1,90 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '../client';
-import '../App.css';
+import { useNavigate } from 'react-router-dom';
+import './NewPost.css';
 
 const NewPost = () => {
-    const [crewmate, setCrewmate] = useState({ name: "", speed: "", color: "", type: "crewmate" });
-
-    useEffect(() => {
-        if (crewmate.type === 'imposter') {
-            setCrewmate(prev => ({ ...prev, speed: '3' }));
-        }
-    }, [crewmate.type]);
+    const [post, setPost] = useState({ title: "", content: "", image_url: "" });
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setCrewmate((prev) => ({
+        setPost((prev) => ({
             ...prev,
             [name]: value,
         }));
     };
 
-    const createCrewmate = async (event) => {
+    const createPost = async (event) => {
         event.preventDefault();
-        await supabase
-            .from('Crewmates')
-            .insert({ name: crewmate.name, speed: crewmate.speed, color: crewmate.color, type: crewmate.type })
-            .select();
-        window.location = "/gallery";
+        setLoading(true);
+
+        const { error } = await supabase
+            .from('Posts')
+            .insert({ 
+                title: post.title, 
+                description: post.content,
+                image: post.image_url
+            });
+
+        if (error) {
+            console.error("Error creating post:", error);
+            alert("Failed to create post. Please try again.");
+        } else {
+            navigate('/');
+        }
+        setLoading(false);
     };
 
     return (
-        <div className="NewCrewmate">
-            <h1>Create a Character</h1>
+        <div className="NewPost">
+            <div className="form-container">
+                <h1>Create a New Post</h1>
+                <form onSubmit={createPost}>
+                    <div className="form-group">
+                        <label htmlFor="title">Title</label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            value={post.title}
+                            onChange={handleChange}
+                            placeholder="Enter a catchy title..."
+                            required
+                        />
+                    </div>
 
-            <div className="type-selector">
-                <label className={`type-option ${crewmate.type === 'crewmate' ? 'crewmate-selected' : ''}`}>
-                    <input type="radio" name="type" value="crewmate" checked={crewmate.type === 'crewmate'} onChange={handleChange} />
-                </label>
-                <label className={`type-option ${crewmate.type === 'imposter' ? 'imposter-selected' : ''}`}>
-                    <input type="radio" name="type" value="imposter" checked={crewmate.type === 'imposter'} onChange={handleChange} />
-                </label>
+                    <div className="form-group">
+                        <label htmlFor="content">Content</label>
+                        <textarea
+                            id="content"
+                            name="content"
+                            value={post.content}
+                            onChange={handleChange}
+                            placeholder="Share your thoughts, workout, or story..."
+                            rows="6"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="image_url">Image URL (Optional)</label>
+                        <input
+                            type="text"
+                            id="image_url"
+                            name="image_url"
+                            value={post.image_url}
+                            onChange={handleChange}
+                            placeholder="https://example.com/image.png"
+                        />
+                    </div>
+
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Creating...' : 'Create Post'}
+                    </button>
+                </form>
             </div>
-
-            <form className='edit-form-container'>
-                <div className='form-card'>
-                    <h3>Character Name</h3>
-                    <div className='form-group'>
-                        <label htmlFor="name">Name:</label>
-                        <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            className="form-input" 
-                            value={crewmate.name} 
-                            onChange={handleChange} 
-                            placeholder="Enter character's name" 
-                        />
-                    </div>
-                </div>
-
-                <div className='form-card'>
-                    <h3>Attributes</h3>
-                    <div className='form-group'>
-                        <label htmlFor="speed">Speed (mph):</label>
-                        <input 
-                            type="text" 
-                            id="speed" 
-                            name="speed" 
-                            className="form-input" 
-                            value={crewmate.speed} 
-                            onChange={handleChange} 
-                            placeholder={crewmate.type === 'imposter' ? 'Locked for Imposters' : "Enter speed in mph"}
-                            disabled={crewmate.type === 'imposter'}
-                        />
-                        {crewmate.type === 'imposter' && (
-                            <p className="help-text">Speed drops to 1 mph when lights are off.</p>
-                        )}
-                    </div>
-                </div>
-
-                <div className='form-card'>
-                    <h3>Choose a Color</h3>
-                    <div className='color-options-container'>
-                        {['red', 'green', 'blue', 'purple', 'yellow', 'orange', 'pink', 'rainbow'].map(color => (
-                            <label className="color-option" key={color}>
-                                <input
-                                    type="radio"
-                                    name="color"
-                                    value={color}
-                                    checked={crewmate.color === color}
-                                    onChange={handleChange}
-                                />
-                                <span className={`color-swatch swatch-${color}`}></span>
-                            </label>
-                        ))}
-                    </div>
-                </div>
-            </form>
-
-            <button type="submit" onClick={createCrewmate}>Create Character</button>
         </div>
     );
 };
