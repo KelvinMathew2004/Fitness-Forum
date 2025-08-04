@@ -1,15 +1,4 @@
-.App-layout {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-.App-content {
-  flex-grow: 1;
-  overflow-y: auto;
-  
-  padding: 2rem; 
-  background-color: #F2F2F2;
+.main-content {
+  margin-top: 70px;
+  padding: 2rem;
 }

@@ -25,9 +25,9 @@ const App = () => {
   ]);
 
   return (
-    <div className="App-layout">
+    <div className="App">
       <NavBar />
-      <main className="App-content">
+      <main className="main-content">
         {element}
       </main>
     </div>
