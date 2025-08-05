@@ -20,7 +20,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-bottom: 2rem;
     /* margin-right: 2rem;
     margin-left: 2rem; */
@@ -124,23 +124,17 @@
     stroke: #757575;
 }
 
-.loading-icon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 5rem;
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .loading-icon {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    animation: spin 1s linear infinite;
+    width: 48px;  /* You can adjust the size */
+    height: 48px;
 }

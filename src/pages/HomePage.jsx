@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../client';
+import Loading from '../assets/loading-icon.svg'; // Step 1: Import your custom SVG
 import Card from '../components/Card';
 import './HomePage.css';
+
+// Step 2: Correct the component to use an <img> tag
+const LoadingSpinner = () => (
+    <div className="loading-icon-container">
+        <img src={Loading} alt="Loading..." className="loading-icon" />
+    </div>
+);
 
 const HomePage = () => {
     const [posts, setPosts] = useState([]);
@@ -14,38 +22,41 @@ const HomePage = () => {
     const inputRef = useRef(null);
     const searchWidgetRef = useRef(null);
 
-    // Debounced search logic inside useEffect
+    // ... (All your useEffect and handler functions remain the same, they are correct)
     useEffect(() => {
+        setLoading(true);
         const timerId = setTimeout(() => {
             const fetchPosts = async () => {
-                setLoading(true);
                 let query = supabase.from('Posts').select().order(sortBy, { ascending: false });
-
                 if (searchQuery) {
                     query = query.ilike('title', `%${searchQuery}%`);
                 }
-
                 const { data, error } = await query;
-
                 if (error) {
                     setError("Could not fetch posts.");
+                    setPosts([]);
                 } else {
                     setPosts(data);
+                    setError(null);
                 }
                 setLoading(false);
             };
             fetchPosts();
-        }, 500);
-
+        }, 300);
         return () => clearTimeout(timerId);
     }, [searchQuery, sortBy]);
 
-    // Focus input when it appears
     useEffect(() => {
         if (isSearchVisible) {
             inputRef.current?.focus();
         }
     }, [isSearchVisible]);
+
+    const handleSortChange = (newSortBy) => {
+        if (sortBy !== newSortBy) {
+            setSortBy(newSortBy);
+        }
+    };
 
     const handleMouseLeave = () => {
         if (document.activeElement !== inputRef.current) {
@@ -54,10 +65,9 @@ const HomePage = () => {
     };
 
     const toggleSearch = (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         const nextVisibility = !isSearchVisible;
         setIsSearchVisible(nextVisibility);
-        
         if (!nextVisibility) {
             setSearchQuery("");
         }
@@ -71,15 +81,6 @@ const HomePage = () => {
         }, 100);
     };
 
-    if (loading && posts.length === 0) {
-        return (
-            <div className="loading-icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="loading-icon">
-                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-                </svg>
-            </div>
-        );
-    }
 
     if (error) {
         return <p style={{ textAlign: 'center', marginTop: '5rem', color: "gray" }}>{error}</p>;
@@ -89,16 +90,15 @@ const HomePage = () => {
         <div className="HomePage">
             <main className="post-gallery">
                 <div className="filter-controls">
-                    <span>Sort by:</span>
-                    <button onClick={() => setSortBy('created_at')} className={`filter-button ${sortBy === 'created_at' ? 'active' : ''}`}>
-                        Newest
+                    <span>Flex by:</span>
+                    <button onClick={() => handleSortChange('created_at')} className={`filter-button ${sortBy === 'created_at' ? 'active' : ''}`}>
+                        Fresh Pumps
                     </button>
-                    <button onClick={() => setSortBy('likes')} className={`filter-button ${sortBy === 'likes' ? 'active' : ''}`}>
-                        Most Popular
+                    <button onClick={() => handleSortChange('likes')} className={`filter-button ${sortBy === 'likes' ? 'active' : ''}`}>
+                        Max Reps
                     </button>
-
-                    <div 
-                        className={`search-widget ${isSearchVisible ? 'expanded' : ''}`} 
+                    <div
+                        className={`search-widget ${isSearchVisible ? 'expanded' : ''}`}
                         ref={searchWidgetRef}
                         onMouseLeave={handleMouseLeave}
                         onBlur={handleBlur}
@@ -106,27 +106,28 @@ const HomePage = () => {
                         <input
                             ref={inputRef}
                             type="text"
-                            id="search-input"
-                            name="search"
                             placeholder="Search by title..."
                             className="search-input"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                         <button type="button" onClick={toggleSearch} className="search-toggle-button">
+                             {/* Step 3: Fix the search icon's SVG tag */}
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
                             </svg>
                         </button>
                     </div>
                 </div>
-                                
-                {!loading && posts.length === 0 ? (
-                    <h2 style={{ color: 'gray'}}>No posts found.</h2>
-                ) : (
+                
+                {loading ? (
+                    <LoadingSpinner />
+                ) : posts.length > 0 ? (
                     posts.map((post) => (
                         <Card key={post.id} id={post.id} createdAt={post.created_at} title={post.title} likes={post.likes} image={post.image} category={post.category}/>
                     ))
+                ) : (
+                    <h2 style={{ color: 'gray', width: '100%', textAlign: 'center' }}>No posts found.</h2>
                 )}
             </main>
         </div>

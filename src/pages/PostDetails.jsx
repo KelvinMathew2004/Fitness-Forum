@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../client';
+import Loading from '../assets/loading-icon.svg';
 import './PostDetails.css';
 
 const timeAgo = (dateString) => {
@@ -19,6 +20,12 @@ const timeAgo = (dateString) => {
     if (days < 7) return `${days} days ago`;
     return `${weeks} weeks ago`;
 };
+
+const LoadingSpinner = () => (
+    <div className="loading-icon-container">
+        <img src={Loading} alt="Loading..." className="details-loading-icon" />
+    </div>
+);
 
 const PostDetails = () => {
     const { id } = useParams();
@@ -82,67 +89,61 @@ const PostDetails = () => {
         }
     };
 
-    if (loading) {
-        return (
-            <div className="loading-icon-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="loading-icon">
-                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-                </svg>
-            </div>
-        );
-    }
-
-    if (!post) return <p className="error-message">Post not found.</p>;
+    if (!post && !loading) return <p className="error-message">Post not found.</p>;
 
     return (
         <div className="PostDetailsPage">
-            <div className="post-container">
-                <p className="post-meta">Posted {timeAgo(post.created_at)}</p>
-                
-                <h1 className="post-title">{post.title}</h1>
-                
-                <p className="post-content">{post.description}</p>
-                
-                {post.image && (
-                    <div className="post-image-container">
-                        <img src={post.image} alt={post.title} />
+            {loading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <div className="post-container">
+                        <p className="post-meta">Logged {timeAgo(post.created_at)}</p>
+                        
+                        <h1 className="post-title">{post.title}</h1>
+                        
+                        <p className="post-content">{post.description}</p>
+                        
+                        {post.image && (
+                            <div className="post-image-container">
+                                <img src={post.image} alt={post.title} />
+                            </div>
+                        )}
+                        
+                        <div className="post-actions">
+                            <button onClick={handleLike} className="like-button">
+                                💪
+                            </button>
+                            <span>{post.likes || 0} {post.likes === 1 ? 'gain' : 'gains'}</span>
+                        </div>
+
+                        <div className="comments-section">
+                            <h3>Spotters ({comments.length})</h3>
+                            
+                            <form onSubmit={handleCommentSubmit} className="comment-form">
+                                <textarea
+                                    value={newComment}
+                                    onChange={(e) => setNewComment(e.target.value)}
+                                    placeholder="Add a comment..."
+                                    rows="3"
+                                />
+                                <button type="submit">Drop a Spot</button>
+                            </form>
+
+                            <div className="comment-list">
+                                {comments.length > 0 ? (
+                                    comments.map((comment) => (
+                                        <div key={comment.id} className="comment-item">
+                                            <p>{comment.comment_text}</p>
+                                            <span className="comment-meta">{timeAgo(comment.created_at)}</span>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No comments yet. Be the first!</p>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 )}
-                
-                <div className="post-actions">
-                    <button onClick={handleLike} className="like-button">
-                        💪
-                    </button>
-                    <span>{post.likes || 0} {post.likes === 1 ? 'gain' : 'gains'}</span>
-                </div>
-
-                <div className="comments-section">
-                    <h3>Comments ({comments.length})</h3>
-                    
-                    <form onSubmit={handleCommentSubmit} className="comment-form">
-                        <textarea
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                            placeholder="Add a comment..."
-                            rows="3"
-                        />
-                        <button type="submit">Post Comment</button>
-                    </form>
-
-                    <div className="comment-list">
-                        {comments.length > 0 ? (
-                            comments.map((comment) => (
-                                <div key={comment.id} className="comment-item">
-                                    <p>{comment.comment_text}</p>
-                                    <span className="comment-meta">{timeAgo(comment.created_at)}</span>
-                                </div>
-                            ))
-                        ) : (
-                            <p>No comments yet. Be the first!</p>
-                        )}
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };
