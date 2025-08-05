@@ -43,6 +43,7 @@
 }
 
 .filter-controls button:hover {
+    color: #000000;
     background-color: #dee2e6;
 }
 
@@ -122,6 +123,11 @@
 
 .search-toggle-button svg {
     stroke: #757575;
+    transition: all 0.2s ease-in-out;
+}
+
+.search-toggle-button:hover svg {
+    stroke: #000000;
 }
 
 @keyframes spin {
