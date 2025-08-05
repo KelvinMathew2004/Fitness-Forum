@@ -125,7 +125,7 @@ const HomePage = () => {
                     <h2>No posts found.</h2>
                 ) : (
                     posts.map((post) => (
-                        <Card key={post.id} id={post.id} createdAt={post.created_at} title={post.title} likes={post.likes}/>
+                        <Card key={post.id} id={post.id} createdAt={post.created_at} title={post.title} likes={post.likes} image={post.image}/>
                     ))
                 )}
             </main>

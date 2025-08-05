@@ -18,9 +18,13 @@ const timeAgo = (dateString) => {
 };
 
 
-const Card = ({ id, createdAt, title, likes }) => {
+const Card = ({ id, createdAt, title, likes, image }) => {
+    const cardStyle = image 
+        ? { backgroundImage: `url(${image})` }
+        : {};
+
     return (
-        <Link to={`/post/${id}`} className="Card">
+        <Link to={`/post/${id}`} className="Card" style={cardStyle}>
             <div className="card-content">
                 <p className="card-time">{timeAgo(createdAt)}</p>
                 <h2 className="card-title">{title}</h2>
