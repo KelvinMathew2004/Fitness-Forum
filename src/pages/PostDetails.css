@@ -149,8 +149,29 @@
     color: #888;
 }
 
-.loading-message, .error-message {
+.error-message {
     text-align: center;
     font-size: 1.2rem;
     padding: 4rem;
+}
+
+.loading-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
