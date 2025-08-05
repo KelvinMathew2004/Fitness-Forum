@@ -136,7 +136,7 @@ button[type="submit"]:disabled {
 .category-button.active {
     border-color: black; /* A bright blue to indicate selection */
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* --- Specific Background Colors --- */

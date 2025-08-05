@@ -11,10 +11,10 @@ const Navbar = () => {
                 </Link>
                 <div className="nav-links">
                     <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                        Home
+                        Locker Room
                     </NavLink>
                     <NavLink to="/new" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-                        Create New Post
+                        Create New Entry
                     </NavLink>
                 </div>
             </div>

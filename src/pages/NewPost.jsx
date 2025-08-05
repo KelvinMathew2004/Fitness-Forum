@@ -52,7 +52,7 @@ const NewPost = () => {
             <div className="form-container">
                 <form onSubmit={createPost}>
                     <div className="form-group">
-                        <label>Category</label>
+                        <label>Focus</label>
                         <div className="category-selector">
                             {categories.map((category) => (
                                 <button
@@ -68,7 +68,7 @@ const NewPost = () => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="title">Title</label>
+                        <label htmlFor="title">Session Name</label>
                         <input
                             type="text"
                             id="title"
@@ -81,7 +81,7 @@ const NewPost = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="content">Content</label>
+                        <label htmlFor="content">Breakdown</label>
                         <textarea
                             id="content"
                             name="content"
@@ -106,7 +106,7 @@ const NewPost = () => {
                     </div>
 
                     <button type="submit" disabled={loading}>
-                        {loading ? 'Creating...' : 'Create Post'}
+                        {loading ? 'Adding...' : 'Add to Log'}
                     </button>
                 </form>
             </div>
