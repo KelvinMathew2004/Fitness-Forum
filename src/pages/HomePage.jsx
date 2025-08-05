@@ -122,10 +122,10 @@ const HomePage = () => {
                 </div>
                                 
                 {!loading && posts.length === 0 ? (
-                    <h2>No posts found.</h2>
+                    <h2 style={{ color: 'gray'}}>No posts found.</h2>
                 ) : (
                     posts.map((post) => (
-                        <Card key={post.id} id={post.id} createdAt={post.created_at} title={post.title} likes={post.likes} image={post.image}/>
+                        <Card key={post.id} id={post.id} createdAt={post.created_at} title={post.title} likes={post.likes} image={post.image} category={post.category}/>
                     ))
                 )}
             </main>

@@ -17,15 +17,28 @@ const timeAgo = (dateString) => {
     return `${days}d ago`;
 };
 
+const categories = [
+    { name: 'Workouts', emoji: '🏋️', colorClass: 'workouts-color' },
+    { name: 'Nutrition', emoji: '🍎', colorClass: 'nutrition-color' },
+    { name: 'Progress', emoji: '📊', colorClass: 'progress-color' },
+    { name: 'Science', emoji: '🧪', colorClass: 'science-color' },
+    { name: 'General', emoji: '💬', colorClass: 'general-color' }
+];
 
-const Card = ({ id, createdAt, title, likes, image }) => {
+
+const Card = ({ id, createdAt, title, likes, image, category }) => {
     const cardStyle = image 
         ? { backgroundImage: `url(${image})` }
         : {};
 
+    const categoryDetails = categories.find(cat => cat.name === category) || categories.find(cat => cat.name === 'General');
+
     return (
         <Link to={`/post/${id}`} className="Card" style={cardStyle}>
-            <div className="card-content">
+            <div className="card-category-icon" title={categoryDetails.name}>
+                {categoryDetails.emoji}
+            </div>
+            <div className={`card-content ${categoryDetails.colorClass}`}>
                 <p className="card-time">{timeAgo(createdAt)}</p>
                 <h2 className="card-title">{title}</h2>
                 <p className="card-likes">{likes || 0} {likes === 1 ? 'gain' : 'gains'}</p>

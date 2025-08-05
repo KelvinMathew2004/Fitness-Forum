@@ -17,10 +17,13 @@
 
 .filter-controls {
     display: flex;
-    justify-content: flex-end;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
     margin-bottom: 2rem;
+    /* margin-right: 2rem;
+    margin-left: 2rem; */
 }
 
 .filter-controls span {

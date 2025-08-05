@@ -116,6 +116,12 @@
     resize: vertical;
 }
 
+.comment-form textarea:focus {
+    outline: none;
+    border-color: whitesmoke;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
 .comment-form button {
     align-self: flex-end;
     background-color: black;

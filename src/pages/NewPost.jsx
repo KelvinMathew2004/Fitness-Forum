@@ -3,8 +3,17 @@ import { supabase } from '../client';
 import { useNavigate } from 'react-router-dom';
 import './NewPost.css';
 
+const categories = [
+    { name: 'Workouts', emoji: '🏋️', colorClass: 'workouts-color' },
+    { name: 'Nutrition', emoji: '🍎', colorClass: 'nutrition-color' },
+    { name: 'Progress', emoji: '📊', colorClass: 'progress-color' },
+    { name: 'Science', emoji: '🧪', colorClass: 'science-color' },
+    { name: 'General', emoji: '💬', colorClass: 'general-color' }
+];
+
 const NewPost = () => {
     const [post, setPost] = useState({ title: "", content: "", image_url: "" });
+    const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -25,7 +34,8 @@ const NewPost = () => {
             .insert({ 
                 title: post.title, 
                 description: post.content,
-                image: post.image_url
+                image: post.image_url,
+                category: selectedCategory
             });
 
         if (error) {
@@ -41,6 +51,22 @@ const NewPost = () => {
         <div className="NewPost">
             <div className="form-container">
                 <form onSubmit={createPost}>
+                    <div className="form-group">
+                        <label>Category</label>
+                        <div className="category-selector">
+                            {categories.map((category) => (
+                                <button
+                                    key={category.name}
+                                    type="button"
+                                    className={`category-button ${category.colorClass} ${selectedCategory === category.name ? 'active' : 'inactive'}`}
+                                    onClick={() => setSelectedCategory(category.name)}
+                                    title={category.name}
+                                >
+                                    <span className="emoji" role="img" aria-label={category.name}>{category.emoji}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                     <div className="form-group">
                         <label htmlFor="title">Title</label>
                         <input
