@@ -12,7 +12,7 @@ const categories = [
 ];
 
 const NewPost = () => {
-    const [post, setPost] = useState({ title: "", content: "", image_url: "" });
+    const [post, setPost] = useState({ title: "", content: "", image_url: "", password: "" });
     const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -35,7 +35,8 @@ const NewPost = () => {
                 title: post.title, 
                 description: post.content,
                 image: post.image_url,
-                category: selectedCategory
+                category: selectedCategory,
+                password: post.password
             });
 
         if (error) {
@@ -89,6 +90,19 @@ const NewPost = () => {
                             onChange={handleChange}
                             placeholder="Share your thoughts, workout, or story..."
                             rows="6"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="password">Access Code</label>
+                        <input
+                            type="text"
+                            id="password"
+                            name="password"
+                            value={post.password}
+                            onChange={handleChange}
+                            placeholder="Enter a password..."
                             required
                         />
                     </div>

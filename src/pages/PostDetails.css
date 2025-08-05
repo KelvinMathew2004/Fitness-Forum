@@ -56,13 +56,61 @@
     object-fit: contain;
 }
 
+.post-actions-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    margin-bottom: 2rem;
+}
+
 .post-actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 2rem;
     font-weight: bold;
     color: #555;
+}
+
+.edit-button {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.edit-button:hover {
+    transform: scale(1.1);
+    background: #e0e0e0;
+}
+
+.edit-button:hover svg {
+  stroke: blue;
+}
+
+.delete-button {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delete-button:hover {
+    transform: scale(1.1);
+    background: #e0e0e0;
+}
+
+.delete-button:hover svg {
+  stroke: red;
 }
 
 .like-button {
