@@ -17,7 +17,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    column-gap: 4rem;
+    row-gap: 1rem;
 }
 
 .navbar-logo {
@@ -26,6 +27,15 @@
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
+    transform-origin: left;
+    transition: 
+        transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+        letter-spacing 0.4s ease-out;
+}
+
+.navbar-logo:hover {
+    transform: scaleX(1.1);
+    letter-spacing: 1.5px;
 }
 
 .nav-links {

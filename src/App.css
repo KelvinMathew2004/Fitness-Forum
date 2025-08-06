@@ -3,9 +3,9 @@
   padding: 2rem;
 }
 
-@media (max-width: 525px) {
+@media (max-width: 535px) {
   .main-content {
-    margin-top: 150px;
+    margin-top: 140px;
     padding: 1rem;
   }
 }

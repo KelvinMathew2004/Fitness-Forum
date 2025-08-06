@@ -7,7 +7,7 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
-                    FitnessForum
+                    FitnessFirst
                 </Link>
                 <div className="nav-links">
                     <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>

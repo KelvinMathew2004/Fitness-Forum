@@ -11,6 +11,16 @@ const categories = [
     { name: 'General', emoji: '💬', colorClass: 'general-color' }
 ];
 
+const cleanSearchTerm = (term) => {
+    const uselessTerms = ['exercise', 'workout', 'stretch', 'routine', 'training', 'male', 'female', 'on', 'in', 'with', 'and', 'arm'];
+    return term
+        .toLowerCase()
+        .split(' ')
+        .filter(word => !uselessTerms.includes(word))
+        .join(' ')
+        .trim();
+};
+
 const NewPost = () => {
     const [post, setPost] = useState({ title: "", content: "", image_url: "", password: "" });
     const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
@@ -29,18 +39,57 @@ const NewPost = () => {
         event.preventDefault();
         setLoading(true);
 
-        const { error } = await supabase
+        let imageUrl = post.image_url;
+
+        // If the category is "Workouts", fetch the image from the API
+        if (selectedCategory === 'Workouts') {
+            const apiKey = import.meta.env.VITE_X_RAPIDAPI_KEY;
+
+            if (!apiKey) {
+                alert("API Key is missing. Please check your .env.local file.");
+                setLoading(false);
+                return;
+            }
+
+            const searchTerm = cleanSearchTerm(post.workout_name);
+            const url = `https://exercisedb-api1.p.rapidapi.com/api/v1/exercises/search?search=${encodeURIComponent(searchTerm)}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': apiKey,
+                    'x-rapidapi-host': 'exercisedb-api1.p.rapidapi.com'
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                
+                if (result.success && result.data.length > 0) {
+                    // Use the image from the first result
+                    imageUrl = result.data[0].imageUrl;
+                } else {
+                    // Use a default link if no exercise is found
+                    imageUrl = 'https://i.imgur.com/g0s4s6s.png'; // CHANGE THIS TO YOUR PREFERRED DEFAULT
+                }
+            } catch (error) {
+                console.error("API fetch error:", error);
+                imageUrl = 'https://i.imgur.com/g0s4s6s.png'; // Use default on error
+            }
+        }
+
+        // Now, insert the post data into Supabase with the correct image URL
+        const { error: supabaseError } = await supabase
             .from('Posts')
             .insert({ 
                 title: post.title, 
                 description: post.content,
-                image: post.image_url,
-                category: selectedCategory,
-                password: post.password
+                image: imageUrl,
+                category: selectedCategory
             });
 
-        if (error) {
-            console.error("Error creating post:", error);
+        if (supabaseError) {
+            console.error("Error creating post:", supabaseError);
             alert("Failed to create post. Please try again.");
         } else {
             navigate('/');
@@ -94,6 +143,33 @@ const NewPost = () => {
                         />
                     </div>
 
+                    {selectedCategory === 'Workouts' ? (
+                        <div className="form-group">
+                            <label htmlFor="workout_name">Main Exercise Name</label>
+                            <input
+                                type="text"
+                                id="workout_name"
+                                name="workout_name"
+                                value={post.workout_name}
+                                onChange={handleChange}
+                                placeholder="e.g., Bench Press"
+                                required 
+                            />
+                        </div>
+                    ) : (
+                        <div className="form-group">
+                            <label htmlFor="image_url">Image URL (Optional)</label>
+                            <input
+                                type="text"
+                                id="image_url"
+                                name="image_url"
+                                value={post.image_url}
+                                onChange={handleChange}
+                                placeholder="https://example.com/image.png"
+                            />
+                        </div>
+                    )}
+
                     <div className="form-group">
                         <label htmlFor="password">Access Code</label>
                         <input
@@ -104,18 +180,6 @@ const NewPost = () => {
                             onChange={handleChange}
                             placeholder="Enter a password..."
                             required
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="image_url">Image URL (Optional)</label>
-                        <input
-                            type="text"
-                            id="image_url"
-                            name="image_url"
-                            value={post.image_url}
-                            onChange={handleChange}
-                            placeholder="https://example.com/image.png"
                         />
                     </div>
 
