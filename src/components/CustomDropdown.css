@@ -49,6 +49,7 @@
     padding: 0.5rem 0;
     margin-top: 0.5rem;
     
+    backdrop-filter: saturate(1000%) blur(10px);
     opacity: 0;
     transform: translateY(-10px);
     visibility: hidden;
