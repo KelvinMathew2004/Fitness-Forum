@@ -85,7 +85,7 @@ button[type="submit"]:hover:not(:disabled) {
 }
 
 button[type="submit"]:disabled {
-    background-color: #a0c3e6;
+    background-color: #90989c;
     cursor: not-allowed;
 }
 
