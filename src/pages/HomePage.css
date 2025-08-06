@@ -20,7 +20,8 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    column-gap: 0.5rem;
+    row-gap: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -52,64 +53,17 @@
     font-weight: bold;
 }
 
-.category-filter {
-    position: relative;
-}
-
-.category-filter select {
-    -webkit-appearance: none; /* Removes default browser styling */
-    -moz-appearance: none;
-    appearance: none;
-    
-    background-color: #e9ecef;
-    color: #000000;
-    border: 1px solid #ced4da;
-    outline: none;
-    padding: 12px 36px 12px 24px; /* Add space on the right for the arrow */
-    border-radius: 20px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.category-filter select:hover {
-    background-color: #dee2e6;
-}
-
-.category-filter select option {
-    background-color: #ffffff; /* Sets the background of each option */
-    color: #333;              /* Sets the text color */
-    padding: 10px;             /* Adds some spacing */
-}
-
-/* You can even try a hover effect, though support is limited */
-.category-filter select option:hover {
-    background-color: #535353;
-    color: white;
-}
-
-.category-filter::after {
-    content: '▼';
-    font-size: 0.7rem;
-    color: #6c757d;
-    position: absolute;
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; /* Allows clicks to pass through to the select element */
-}
-
 .search-widget {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: 44px;
+    height: 42px;
     overflow: hidden;
 
     background-color: #e9ecef;
     border: 1px solid #ced4da;
     
-    width: 44px;
+    width: 42px;
 
     border-radius: 22px;
     transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
@@ -149,13 +103,12 @@
     align-items: center;
     width: 44px;
     height: 44px;
-    padding-left: 3px !important;
+    padding-left: 10px !important;
     flex-shrink: 0;
     border: none;
     background-color: transparent;
     border-radius: 50%;
     cursor: pointer;
-    padding: 0;
 }
 
 .search-toggle-button svg {

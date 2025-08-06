@@ -112,31 +112,33 @@ const HomePage = () => {
                     <button onClick={() => handleSortChange('likes')} className={`filter-button ${sortBy === 'likes' ? 'active' : ''}`}>
                         Max Reps
                     </button>
-                    <CustomDropdown
-                        options={categoryOptions}
-                        selectedValue={filterCategory}
-                        onValueChange={setFilterCategory}
-                        placeholder="Filter by Category"
-                    />
-                    <div
-                        className={`search-widget ${isSearchVisible ? 'expanded' : ''}`}
-                        ref={searchWidgetRef}
-                        onMouseLeave={handleMouseLeave}
-                        onBlur={handleBlur}
-                    >
-                        <input
-                            ref={inputRef}
-                            type="text"
-                            placeholder="Search by title..."
-                            className="search-input"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                    <div className="filter-controls" style={{ margin: 0}}>
+                        <CustomDropdown
+                            options={categoryOptions}
+                            selectedValue={filterCategory}
+                            onValueChange={setFilterCategory}
+                            placeholder="Filter by Category"
                         />
-                        <button type="button" onClick={toggleSearch} className="search-toggle-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
-                            </svg>
-                        </button>
+                        <div
+                            className={`search-widget ${isSearchVisible ? 'expanded' : ''}`}
+                            ref={searchWidgetRef}
+                            onMouseLeave={handleMouseLeave}
+                            onBlur={handleBlur}
+                        >
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                placeholder="Search by title..."
+                                className="search-input"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <button type="button" onClick={toggleSearch} className="search-toggle-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
+                                </svg>
+                            </button>
+                    </div>
                     </div>
                 </div>
                 

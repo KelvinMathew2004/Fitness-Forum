@@ -4,7 +4,8 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px) saturate(1000%);
     padding: 1.5rem 2rem;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
@@ -22,6 +23,8 @@
 }
 
 .navbar-logo {
+    display: flex;
+    align-items: center;
     font-family: 'Arial Black', 'Gadget', sans-serif;
     color: white;
     font-size: 1.5rem;
