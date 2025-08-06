@@ -245,7 +245,13 @@ const PostDetails = () => {
                     <div className="post-actions-row">
                         <div className="post-actions">
                             <button onClick={handleLike} className="like-button">
-                                💪
+                                <i class="fa-solid fa-thumbs-up"
+                                    style={{ 
+                                        color: '#FF8B60', 
+                                        verticalAlign: 'middle' 
+                                    }}
+                                    aria-hidden="true"
+                                ></i>
                             </button>
                             <span>{post.likes || 0} {post.likes === 1 ? 'gain' : 'gains'}</span>
                         </div>

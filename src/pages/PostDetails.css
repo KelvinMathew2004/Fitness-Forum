@@ -179,6 +179,7 @@
     border-radius: 50%;
     width: 40px;
     height: 40px;
+    padding-bottom: 5px;
     font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.2s;
