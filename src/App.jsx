@@ -23,7 +23,7 @@ const App = () => {
       element: <EditPost />
     },
     {
-      path:"/new",
+      path:"/new/:id?",
       element: <NewPost />
     }
   ]);

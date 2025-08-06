@@ -132,8 +132,20 @@ button[type="submit"]:disabled {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.workouts-color { background-color: #a7c5eb; }
-.nutrition-color { background-color: #f3a6a6; }
-.progress-color { background-color: #a2e4b8; }
-.science-color { background-color: #d9b8f3; }
-.general-color { background-color: #f5d68f; }
+.category-button:disabled {
+    cursor: not-allowed;
+}
+
+.category-button:disabled .emoji {
+    transform: scale(1) !important;
+}
+
+.category-button.active:disabled {
+    border-color: rgb(176, 176, 176);
+}
+
+.workouts-options-color { background-color: #a7c5eb; }
+.nutrition-options-color { background-color: #f3a6a6; }
+.progress-options-color { background-color: #a2e4b8; }
+.science-options-color { background-color: #d9b8f3; }
+.general-options-color { background-color: #f5d68f; }

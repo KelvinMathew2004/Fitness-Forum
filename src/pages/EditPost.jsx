@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../client';
 import Loading from '../assets/loading-icon.svg';
-import './NewPost.css'; // Reusing the same CSS
+import './NewPost.css';
 
 const categories = [
-    { name: 'Workouts', emoji: '🏋️', colorClass: 'workouts-color' },
-    { name: 'Nutrition', emoji: '🍎', colorClass: 'nutrition-color' },
-    { name: 'Progress', emoji: '📊', colorClass: 'progress-color' },
-    { name: 'Science', emoji: '🧪', colorClass: 'science-color' },
-    { name: 'General', emoji: '💬', colorClass: 'general-color' }
+    { name: 'Workouts', emoji: '🏋️', colorClass: 'workouts-options-color' },
+    { name: 'Nutrition', emoji: '🍎', colorClass: 'nutrition-options-color' },
+    { name: 'Progress', emoji: '📊', colorClass: 'progress-options-color' },
+    { name: 'Science', emoji: '🧪', colorClass: 'science-options-color' },
+    { name: 'General', emoji: '💬', colorClass: 'general-options-color' }
 ];
 
 const LoadingSpinner = () => (
@@ -18,7 +18,6 @@ const LoadingSpinner = () => (
     </div>
 );
 
-// Helper function to clean up the search term for ExerciseDB
 const cleanSearchTerm = (term) => {
     const uselessTerms = ['exercise', 'workout', 'stretch', 'routine', 'training', 'male', 'female', 'on', 'in', 'with', 'and', 'arm', 'why', 'what', 'how', 'when'];
     return term
@@ -29,7 +28,6 @@ const cleanSearchTerm = (term) => {
         .trim();
 };
 
-// Helper function to clean up the title for Unsplash search
 const filterTitleForUnsplash = (rawQuery) => {
     const unimportantWords = [
         'a', 'an', 'the', 'is', 'are', 'was', 'were', 'be', 'been', 'being',

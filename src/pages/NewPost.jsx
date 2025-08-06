@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../client';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './NewPost.css';
 
 const categories = [
-    { name: 'Workouts', emoji: '🏋️', colorClass: 'workouts-color' },
-    { name: 'Nutrition', emoji: '🍎', colorClass: 'nutrition-color' },
-    { name: 'Progress', emoji: '📊', colorClass: 'progress-color' },
-    { name: 'Science', emoji: '🧪', colorClass: 'science-color' },
-    { name: 'General', emoji: '💬', colorClass: 'general-color' }
+    { name: 'Workouts', emoji: '🏋️', colorClass: 'workouts-options-color' },
+    { name: 'Nutrition', emoji: '🍎', colorClass: 'nutrition-options-color' },
+    { name: 'Progress', emoji: '📊', colorClass: 'progress-options-color' },
+    { name: 'Science', emoji: '🧪', colorClass: 'science-options-color' },
+    { name: 'General', emoji: '💬', colorClass: 'general-options-color' }
 ];
 
 const cleanSearchTerm = (term) => {
@@ -45,6 +46,8 @@ const filterTitleForUnsplash = (rawQuery) => {
 
 
 const NewPost = () => {
+    const { id: linked_post_id } = useParams();
+    const [linked_post, setLinkedPost] = useState(null);
     const [post, setPost] = useState({ title: "", description: "", image_url: "", password: "", workout_name: "" });
     const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
     const [loading, setLoading] = useState(false);
@@ -57,6 +60,29 @@ const NewPost = () => {
             [name]: value,
         }));
     };
+
+    useEffect(() => {
+        const fetchLinkedPostDetails = async () => {
+            if (!linked_post_id) return;
+            console.log('Attempting to fetch post with ID:', linked_post_id);
+
+            const { data, error } = await supabase
+                .from('Posts')
+                .select('*')
+                .eq('id', linked_post_id)
+                .single();
+
+            if (error) {
+                console.error('Error fetching linked post:', error);
+            } else {
+                console.log('Fetched data:', data);
+                setLinkedPost(data);
+                setSelectedCategory(data.category);
+            }
+        };
+
+        fetchLinkedPostDetails();
+    }, [linked_post_id]);
 
     const createPost = async (event) => {
         event.preventDefault();
@@ -134,14 +160,16 @@ const NewPost = () => {
                 image: imageUrl,
                 category: selectedCategory,
                 password: post.password,
-                workout_name: post.workout_name
+                workout_name: post.workout_name,
+                linked_post_id: linked_post_id || null,
+                repost: linked_post_id ? true : false
             });
 
         if (supabaseError) {
             console.error("Error creating post:", supabaseError);
             alert("Failed to create post. Please try again.");
         } else {
-            navigate('/');
+            navigate(`/`);
         }
         setLoading(false);
     };
@@ -160,6 +188,7 @@ const NewPost = () => {
                                     className={`category-button ${category.colorClass} ${selectedCategory === category.name ? 'active' : 'inactive'}`}
                                     onClick={() => setSelectedCategory(category.name)}
                                     title={category.name}
+                                    disabled={!!linked_post_id}
                                 >
                                     <span className="emoji" role="img" aria-label={category.name}>{category.emoji}</span>
                                 </button>
