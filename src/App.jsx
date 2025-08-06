@@ -9,7 +9,6 @@ import HomePage from './pages/HomePage';
 
 const App = () => {
   
-  // Sets up routes
   let element = useRoutes([
     {
       path: "/",

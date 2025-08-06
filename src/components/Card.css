@@ -33,7 +33,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    z-index: 3; /* Ensure it's on top of the card-content overlay */
+    z-index: 3;
 
     width: 44px;
     height: 44px;
@@ -43,14 +43,14 @@
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    user-select: none; /* Prevents the emoji from being selected as text */
+    user-select: none;
 }
 
-.workouts-color { background-color: rgba(167, 197, 235, 0.90); } /* Light Blue */
-.nutrition-color { background-color: rgba(243, 166, 166, 0.90); } /* Light Red */
-.progress-color { background-color: rgba(162, 228, 184, 0.90); } /* Light Green */
-.science-color { background-color: rgba(217, 184, 243, 0.90); } /* Light Purple */
-.general-color { background-color: rgba(245, 214, 143, 0.90); } /* Light Orange */
+.workouts-color { background-color: rgba(167, 197, 235, 0.90); }
+.nutrition-color { background-color: rgba(243, 166, 166, 0.90); }
+.progress-color { background-color: rgba(162, 228, 184, 0.90); }
+.science-color { background-color: rgba(217, 184, 243, 0.90); }
+.general-color { background-color: rgba(245, 214, 143, 0.90); }
 
 .card-time {
     font-size: 0.8rem;

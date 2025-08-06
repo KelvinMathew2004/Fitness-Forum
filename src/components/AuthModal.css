@@ -1,4 +1,3 @@
-/* The semi-transparent background overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -13,7 +12,6 @@
     opacity: 0;
     animation: fadeIn 0.3s forwards;
     
-    /* This creates the blur effect on the content behind the modal */
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
 }
@@ -24,7 +22,6 @@
     }
 }
 
-/* The main modal container */
 .modal-content {
     background-color: white;
     padding: 2rem;
@@ -43,8 +40,6 @@
     }
 }
 
-
-/* The close button in the top-right corner */
 .modal-close-button {
     position: absolute;
     top: 10px;
@@ -90,7 +85,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    box-sizing: border-box;
 }
 
 .password-input:focus {
@@ -99,7 +94,6 @@
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-/* The primary action button */
 .submit-button {
     width: 100%;
     padding: 0.75rem;
@@ -122,7 +116,6 @@
     cursor: not-allowed;
 }
 
-/* The error message styling */
 .incorrect-password {
     color: #d9534f !important;
     background-color: #f3caca;

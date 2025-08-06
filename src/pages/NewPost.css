@@ -90,7 +90,7 @@ button[type="submit"]:disabled {
 }
 
 
-/* CATEGORIES */
+/* CATEGORIES STYLING */
 
 .category-selector {
     display: flex;
@@ -99,7 +99,6 @@ button[type="submit"]:disabled {
     margin-top: 0.5rem;
 }
 
-/* Base style for each circular button */
 .category-button {
     width: 60px;
     height: 60px;
@@ -112,37 +111,29 @@ button[type="submit"]:disabled {
     transition: all 0.3s ease;
 }
 
-/* Style for the emoji inside the button */
 .category-button .emoji {
     font-size: 2rem;
     transition: transform 0.2s ease;
-    /* Prevents the emoji from being selected as text */
     user-select: none;
 }
 
-/* --- Interaction Styles --- */
-
-/* Make the emoji slightly bigger on hover */
 .category-button:hover .emoji {
     transform: scale(1.1);
 }
 
-/* The desaturation effect for all non-selected buttons */
 .category-button.inactive {
     filter: grayscale(80%);
     opacity: 0.6;
 }
 
-/* Highlight the selected button */
 .category-button.active {
-    border-color: black; /* A bright blue to indicate selection */
+    border-color: black;
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Specific Background Colors --- */
-.workouts-color { background-color: #a7c5eb; } /* Light Blue */
-.nutrition-color { background-color: #f3a6a6; } /* Light Red */
-.progress-color { background-color: #a2e4b8; } /* Light Green */
-.science-color { background-color: #d9b8f3; } /* Light Purple */
-.general-color { background-color: #f5d68f; } /* Light Orange */
+.workouts-color { background-color: #a7c5eb; }
+.nutrition-color { background-color: #f3a6a6; }
+.progress-color { background-color: #a2e4b8; }
+.science-color { background-color: #d9b8f3; }
+.general-color { background-color: #f5d68f; }

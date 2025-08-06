@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../client';
-import Loading from '../assets/loading-icon.svg'; // Step 1: Import your custom SVG
+import Loading from '../assets/loading-icon.svg';
 import Card from '../components/Card';
 import './HomePage.css';
 
-// Step 2: Correct the component to use an <img> tag
 const LoadingSpinner = () => (
     <div className="loading-icon-container">
         <img src={Loading} alt="Loading..." className="loading-icon" />
@@ -22,7 +21,6 @@ const HomePage = () => {
     const inputRef = useRef(null);
     const searchWidgetRef = useRef(null);
 
-    // ... (All your useEffect and handler functions remain the same, they are correct)
     useEffect(() => {
         setLoading(true);
         const timerId = setTimeout(() => {
@@ -112,7 +110,6 @@ const HomePage = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                         <button type="button" onClick={toggleSearch} className="search-toggle-button">
-                             {/* Step 3: Fix the search icon's SVG tag */}
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
                             </svg>

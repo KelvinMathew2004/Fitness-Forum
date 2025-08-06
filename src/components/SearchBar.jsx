@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-// A simple debounce hook directly inside this file
 function useDebounce(value, delay) {
     const [debouncedValue, setDebouncedValue] = useState(value);
     useEffect(() => {
@@ -24,12 +23,10 @@ const SearchBar = ({ onSearch }) => {
     const inputRef = useRef(null);
     const searchWidgetRef = useRef(null);
 
-    // This effect tells the parent (HomePage) about the debounced search term
     useEffect(() => {
         onSearch(debouncedInputValue);
     }, [debouncedInputValue, onSearch]);
 
-    // This effect focuses the input when it appears
     useEffect(() => {
         if (isSearchVisible) {
             inputRef.current?.focus();

@@ -226,7 +226,7 @@
 
 .details-loading-icon {
     animation: spin 1s linear infinite;
-    width: 48px;  /* You can adjust the size */
+    width: 48px;
     height: 48px;
     margin-top: 6rem;
 }

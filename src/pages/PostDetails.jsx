@@ -54,7 +54,7 @@ const PostDetails = () => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-    const [authAction, setAuthAction] = useState(null); // 'edit' or 'delete'
+    const [authAction, setAuthAction] = useState(null);
     const [authError, setAuthError] = useState(null);
     const [isSubmittingAuth, setIsSubmittingAuth] = useState(false);
 
@@ -159,7 +159,7 @@ const PostDetails = () => {
         } else {
             navigate('/');
         }
-        setIsAuthModalOpen(false); // Close modal after attempting delete
+        setIsAuthModalOpen(false);
     };
 
     if (!post && !loading) return <p className="error-message">Post not found.</p>;

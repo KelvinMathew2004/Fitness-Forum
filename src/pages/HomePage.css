@@ -22,8 +22,6 @@
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 2rem;
-    /* margin-right: 2rem;
-    margin-left: 2rem; */
 }
 
 .filter-controls span {
@@ -54,34 +52,28 @@
     font-weight: bold;
 }
 
-/* In HomePage.css or a global stylesheet like index.css */
-
-/* --- The Main Widget Container (The Flex Parent) --- */
 .search-widget {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* NEW: Pushes content to the right */
+    justify-content: flex-end;
     height: 44px;
     overflow: hidden;
 
     background-color: #e9ecef;
     border: 1px solid #ced4da;
     
-    /* Collapsed State */
     width: 44px;
 
     border-radius: 22px;
     transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
 }
 
-/* --- The Widget's Expanded State --- */
 .search-widget.expanded {
     width: 300px;
-    justify-content: flex-start; /* UPDATE: Align content to the left when expanded */
+    justify-content: flex-start;
 }
 
 
-/* --- The Search Input (Flex Item 1) --- */
 .search-input {
     flex-grow: 1;
     height: 100%;
@@ -91,7 +83,6 @@
     font-size: 0.9rem;
     color: #495057;
     
-    /* Collapsed State */
     width: 0;
     padding: 0;
     opacity: 0;
@@ -99,14 +90,12 @@
     transition: opacity 0.2s ease-in-out;
 }
 
-/* --- The Input's Expanded State --- */
 .search-widget.expanded .search-input {
     opacity: 1;
     padding: 0 10px 0 20px;
 }
 
 
-/* --- The Icon Button (Flex Item 2) --- */
 .search-toggle-button {
     display: flex;
     justify-content: center;
@@ -141,6 +130,6 @@
 
 .loading-icon {
     animation: spin 1s linear infinite;
-    width: 48px;  /* You can adjust the size */
+    width: 48px;
     height: 48px;
 }

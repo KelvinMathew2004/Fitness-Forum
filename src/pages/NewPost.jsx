@@ -45,8 +45,7 @@ const filterTitleForUnsplash = (rawQuery) => {
 
 
 const NewPost = () => {
-    const [post, setPost] = useState({ title: "", content: "", image_url: "", password: "" });
-    const [workoutName, setWorkoutName] = useState("");
+    const [post, setPost] = useState({ title: "", description: "", image_url: "", password: "", workout_name: "" });
     const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -74,7 +73,7 @@ const NewPost = () => {
                 return;
             }
 
-            const searchTerm = cleanSearchTerm(workoutName);
+            const searchTerm = cleanSearchTerm(post.workout_name);
             const url = `https://exercisedb-api1.p.rapidapi.com/api/v1/exercises/search?search=${encodeURIComponent(searchTerm)}`;
             const options = {
                 method: 'GET',
@@ -131,10 +130,11 @@ const NewPost = () => {
             .from('Posts')
             .insert({ 
                 title: post.title, 
-                description: post.content,
+                description: post.description,
                 image: imageUrl,
                 category: selectedCategory,
-                password: post.password
+                password: post.password,
+                workout_name: post.workout_name
             });
 
         if (supabaseError) {
@@ -151,7 +151,7 @@ const NewPost = () => {
             <div className="form-container">
                 <form onSubmit={createPost}>
                     <div className="form-group">
-                        <label>Category</label>
+                        <label>Focus</label>
                         <div className="category-selector">
                             {categories.map((category) => (
                                 <button
@@ -168,7 +168,7 @@ const NewPost = () => {
                     </div>
                     
                     <div className="form-group">
-                        <label htmlFor="title">Title</label>
+                        <label htmlFor="title">Session Name</label>
                         <input
                             type="text"
                             id="title"
@@ -181,11 +181,11 @@ const NewPost = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="content">Content</label>
+                        <label htmlFor="description">Breakdown</label>
                         <textarea
-                            id="content"
-                            name="content"
-                            value={post.content}
+                            id="description"
+                            name="description"
+                            value={post.description}
                             onChange={handleChange}
                             placeholder="Share your sets, reps, and thoughts..."
                             rows="6"
@@ -195,13 +195,13 @@ const NewPost = () => {
                     
                     {selectedCategory === 'Workouts' ? (
                         <div className="form-group">
-                            <label htmlFor="workout_name">Main Exercise Name</label>
+                            <label htmlFor="workout_name">Exercise Name</label>
                             <input
                                 type="text"
                                 id="workout_name"
                                 name="workout_name"
-                                value={workoutName}
-                                onChange={(e) => setWorkoutName(e.target.value)}
+                                value={post.workout_name}
+                                onChange={handleChange}
                                 placeholder="e.g., Bench Press"
                                 required 
                             />
@@ -234,7 +234,7 @@ const NewPost = () => {
                     </div>
 
                     <button type="submit" disabled={loading}>
-                        {loading ? 'Creating...' : 'Create Post'}
+                        {loading ? 'Adding...' : 'Add to Log'}
                     </button>
                 </form>
             </div>
