@@ -102,6 +102,7 @@
     align-items: center;
     width: 44px;
     height: 44px;
+    padding-left: 3px !important;
     flex-shrink: 0;
     border: none;
     background-color: transparent;

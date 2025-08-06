@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../client';
 import AuthModal from '../components/AuthModal';
 import Loading from '../assets/loading-icon.svg';
+import Card from '../components/Card';
 import './PostDetails.css';
 
 const authErrorMessages = [
@@ -21,6 +22,15 @@ const authErrorMessages = [
     'Missed the cue. Focus and punch it in right.',
     'Form check failed. Adjust your input and lift again.',
     'That’s a no-rep. Enter the correct code to proceed.'
+];
+
+const categories = [
+    { name: 'Workouts', emoji: '🏋️' },
+    { name: 'Nutrition', emoji: '🍎' },
+    { name: 'Progress', emoji: '📊' },
+    { name: 'Science', emoji: '🧪' },
+    { name: 'General', emoji: '💬' },
+    { name: 'Repost', emoji: '' }
 ];
 
 const timeAgo = (dateString) => {
@@ -51,6 +61,9 @@ const PostDetails = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [post, setPost] = useState(null);
+    const [categoryEmoji, setCategoryEmoji] = useState('');
+    const [linked_post_id, setLinkedPostId] = useState(null);
+    const [linked_post, setLinkedPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -59,29 +72,48 @@ const PostDetails = () => {
     const [isSubmittingAuth, setIsSubmittingAuth] = useState(false);
 
     useEffect(() => {
-        const fetchPostAndComments = async () => {
+        const fetchAllPostData = async () => {
             setLoading(true);
-            const { data, error } = await supabase
+
+            const { data: postData, error: postError } = await supabase
                 .from('Posts')
-                .select(`
-                    *,
-                    Comments ( * )
-                `)
+                .select(`*, Comments (*)`)
                 .eq('id', id)
                 .order('created_at', { foreignTable: 'Comments', ascending: false })
                 .single();
 
-            if (error) {
-                console.error('Error fetching post:', error);
+            if (postError) {
+                console.error('Error fetching main post:', postError);
                 setPost(null);
-            } else if (data) {
-                setPost(data);
-                setComments(data.Comments || []);
+                setLoading(false);
+                return;
             }
+
+            setPost(postData);
+            setComments(postData.Comments || []);
+
+            const matchedCategory = categories.find(c => c.name === postData.category);
+            setCategoryEmoji(matchedCategory?.emoji || '');
+
+            if (postData.repost && postData.linked_post_id) {
+                const { data: linkedData, error: linkedError } = await supabase
+                    .from('Posts')
+                    .select('*')
+                    .eq('id', postData.linked_post_id)
+                    .single();
+
+                if (linkedError) {
+                    console.error('Error fetching linked post:', linkedError);
+                    setLinkedPost(null);
+                } else {
+                    setLinkedPost(linkedData);
+                }
+            }
+
             setLoading(false);
         };
 
-        fetchPostAndComments();
+        fetchAllPostData();
     }, [id]);
 
     const handleLike = async () => {
@@ -170,6 +202,12 @@ const PostDetails = () => {
                 <LoadingSpinner />
             ) : (
                 <div className="post-container">
+                    {categoryEmoji && (
+                        <div className="card-details-category-icon" title={post.category}>
+                            {categoryEmoji}
+                        </div>
+                    )}
+
                     <p className="post-meta">Logged {timeAgo(post.created_at)}</p>
 
                     <h1 className="post-title">{post.title}</h1>
@@ -182,6 +220,23 @@ const PostDetails = () => {
                         </div>
                     )}
 
+                    {post.repost && (
+                        linked_post ? (
+                            <Card
+                                id={linked_post.id}
+                                createdAt={linked_post.created_at}
+                                title={linked_post.title}
+                                likes={linked_post.likes}
+                                image={linked_post.image}
+                                category={"Repost"}
+                            />
+                        ) : (
+                            <p className="deleted-linked-post-card" >
+                                ↩ Original post has been deleted.
+                            </p>
+                        )
+                    )}
+
                     <div className="post-actions-row">
                         <div className="post-actions">
                             <button onClick={handleLike} className="like-button">
@@ -190,13 +245,21 @@ const PostDetails = () => {
                             <span>{post.likes || 0} {post.likes === 1 ? 'gain' : 'gains'}</span>
                         </div>
                         <div className="post-actions">
-                            <button onClick={handleEditClick} className="edit-button">
+                            <button onClick={() => navigate(`/new/${id}`)} className="repost-button" title='Repost'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" >
+                                    <path d="M3 2v6h6" />
+                                    <path d="M21 12A9 9 0 0 0 6 5.3L3 8" />
+                                    <path d="M21 22v-6h-6" />
+                                    <path d="M3 12a9 9 0 0 0 15 6.7l3-2.7" />
+                                </svg>
+                            </button>
+                            <button onClick={handleEditClick} className="edit-button" title='Edit'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M12 20h9" />
                                     <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
                                 </svg>
                             </button>
-                            <button onClick={handleDeleteClick} className="delete-button">
+                            <button onClick={handleDeleteClick} className="delete-button" title='Delete'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#757575" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <polyline points="3 6 5 6 21 6" />
                                     <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
