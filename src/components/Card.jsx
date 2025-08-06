@@ -22,7 +22,8 @@ const categories = [
     { name: 'Nutrition', emoji: '🍎', colorClass: 'nutrition-color' },
     { name: 'Progress', emoji: '📊', colorClass: 'progress-color' },
     { name: 'Science', emoji: '🧪', colorClass: 'science-color' },
-    { name: 'General', emoji: '💬', colorClass: 'general-color' }
+    { name: 'General', emoji: '💬', colorClass: 'general-color' },
+    { name: 'Repost', emoji: '', colorClass: 'repost-color' }
 ];
 
 
@@ -34,7 +35,7 @@ const Card = ({ id, createdAt, title, likes, image, category }) => {
     const categoryDetails = categories.find(cat => cat.name === category) || categories.find(cat => cat.name === 'General');
 
     return (
-        <Link to={`/post/${id}`} className="Card" style={cardStyle}>
+        <Link to={`/post/${id}`} className={`Card ${category === "Repost" ? "linked-post-card" : ""}`} style={cardStyle}>
             <div className="card-category-icon" title={categoryDetails.name}>
                 {categoryDetails.emoji}
             </div>
