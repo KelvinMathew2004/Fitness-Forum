@@ -43,10 +43,15 @@ const timeAgo = (dateString) => {
     const days = Math.round(hours / 24);
     const weeks = Math.round(days / 7);
 
+    if (seconds == 1) return `${seconds} second ago`;
     if (seconds < 60) return `${seconds} seconds ago`;
+    if (minutes == 1) return `${minutes} minute ago`;
     if (minutes < 60) return `${minutes} minutes ago`;
+    if (hours == 1) return `${hours} hour ago`
     if (hours < 24) return `${hours} hours ago`;
+    if (days == 1) return `${days} day ago`;
     if (days < 7) return `${days} days ago`;
+    if (weeks == 1) return `${weeks} week ago`;
     return `${weeks} weeks ago`;
 };
 
@@ -216,7 +221,7 @@ const PostDetails = () => {
 
                     {post.image && (
                         <div className="post-image-container">
-                            <img src={post.image} alt={post.title} />
+                            <img src={post.image} alt={post.title} className="post-image-fit"/>
                         </div>
                     )}
 

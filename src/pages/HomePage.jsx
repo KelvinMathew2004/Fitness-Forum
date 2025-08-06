@@ -10,11 +10,14 @@ const LoadingSpinner = () => (
     </div>
 );
 
+const categories = ['All', 'Workouts', 'Nutrition', 'Progress', 'Science', 'General'];
+
 const HomePage = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sortBy, setSortBy] = useState('created_at');
+    const [filterCategory, setFilterCategory] = useState('All');
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -26,9 +29,15 @@ const HomePage = () => {
         const timerId = setTimeout(() => {
             const fetchPosts = async () => {
                 let query = supabase.from('Posts').select().order(sortBy, { ascending: false });
+                
                 if (searchQuery) {
                     query = query.ilike('title', `%${searchQuery}%`);
                 }
+
+                if (filterCategory !== 'All') {
+                    query = query.eq('category', filterCategory);
+                }
+
                 const { data, error } = await query;
                 if (error) {
                     setError("Could not fetch posts.");
@@ -42,7 +51,7 @@ const HomePage = () => {
             fetchPosts();
         }, 300);
         return () => clearTimeout(timerId);
-    }, [searchQuery, sortBy]);
+    }, [searchQuery, sortBy, filterCategory]);
 
     useEffect(() => {
         if (isSearchVisible) {
@@ -95,6 +104,18 @@ const HomePage = () => {
                     <button onClick={() => handleSortChange('likes')} className={`filter-button ${sortBy === 'likes' ? 'active' : ''}`}>
                         Max Reps
                     </button>
+                    <div className="category-filter">
+                        <select 
+                            value={filterCategory} 
+                            onChange={(e) => setFilterCategory(e.target.value)}
+                        >
+                            {categories.map(category => (
+                                <option key={category} value={category}>
+                                    {category}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                     <div
                         className={`search-widget ${isSearchVisible ? 'expanded' : ''}`}
                         ref={searchWidgetRef}

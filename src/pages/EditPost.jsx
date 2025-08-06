@@ -84,7 +84,8 @@ const EditPage = () => {
                     description: data.description || '',
                     image: data.image || '',
                     password: data.password,
-                    workout_name: data.workout_name || ''
+                    workout_name: data.workout_name || '',
+                    repost: data.repost || false
                 });
                 setOriginalWorkoutName(data.workout_name || '');
                 setSelectedCategory(data.category);
@@ -198,6 +199,7 @@ const EditPage = () => {
                                         className={`category-button ${category.colorClass} ${selectedCategory === category.name ? 'active' : 'inactive'}`}
                                         onClick={() => setSelectedCategory(category.name)}
                                         title={category.name}
+                                        disabled={post.repost}
                                     >
                                         <span className="emoji" role="img" aria-label={category.name}>{category.emoji}</span>
                                     </button>
