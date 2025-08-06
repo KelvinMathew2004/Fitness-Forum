@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../client';
 import Loading from '../assets/loading-icon.svg';
 import Card from '../components/Card';
+import CustomDropdown from '../components/CustomDropdown';
 import './HomePage.css';
 
 const LoadingSpinner = () => (
@@ -10,7 +11,14 @@ const LoadingSpinner = () => (
     </div>
 );
 
-const categories = ['All', 'Workouts', 'Nutrition', 'Progress', 'Science', 'General'];
+const categoryOptions = [
+    { value: 'All', label: 'All Categories' },
+    { value: 'Workouts', label: '🏋️ \u00A0 Workouts' },
+    { value: 'Nutrition', label: '🍎 \u00A0 Nutrition' },
+    { value: 'Progress', label: '📊 \u00A0 Progress' },
+    { value: 'Science', label: '🧪 \u00A0 Science' },
+    { value: 'General', label: '💬 \u00A0 General' }
+];
 
 const HomePage = () => {
     const [posts, setPosts] = useState([]);
@@ -104,18 +112,12 @@ const HomePage = () => {
                     <button onClick={() => handleSortChange('likes')} className={`filter-button ${sortBy === 'likes' ? 'active' : ''}`}>
                         Max Reps
                     </button>
-                    <div className="category-filter">
-                        <select 
-                            value={filterCategory} 
-                            onChange={(e) => setFilterCategory(e.target.value)}
-                        >
-                            {categories.map(category => (
-                                <option key={category} value={category}>
-                                    {category}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <CustomDropdown
+                        options={categoryOptions}
+                        selectedValue={filterCategory}
+                        onValueChange={setFilterCategory}
+                        placeholder="Filter by Category"
+                    />
                     <div
                         className={`search-widget ${isSearchVisible ? 'expanded' : ''}`}
                         ref={searchWidgetRef}
