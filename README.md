@@ -2,7 +2,7 @@
 
 Submitted by: **Kelvin Mathew**
 
-This web app: **This a fitness forum where enthusiats can discuss various topics and even comment or create threads for longer discussions. Images can either be added or ExcerciseDB API and Unsplash API are used to fetch images through filtered inputs.**
+This web app: **Dynamic forum for fitness enthusiasts to connect and share their journey. Users can create posts across various categories like workouts, nutrition, and progress, fostering in-depth discussions through comments. The platform intelligently enhances posts by automatically fetching relevant images. If a user creates a workout post, it pulls an exercise image from the ExerciseDB API. For all other categories, it finds a high-quality photo from the Unsplash API based on the post's title, ensuring every thread is visually engaging.**
 
 Time spent: **17** hours spent in total
 
