@@ -190,7 +190,7 @@ const EditPage = () => {
                         {error && <div className="error-message">{error}</div>}
 
                         <div className="form-group">
-                            <label>Focus</label>
+                            <label>Focus *</label>
                             <div className="category-selector">
                                 {categories.map((category) => (
                                     <button
@@ -208,7 +208,7 @@ const EditPage = () => {
                         </div>
                         
                         <div className="form-group">
-                            <label htmlFor="title">Session Name</label>
+                            <label htmlFor="title">Session Name *</label>
                             <input
                                 type="text"
                                 id="title"
@@ -220,7 +220,7 @@ const EditPage = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="description">Breakdown</label>
+                            <label htmlFor="description">Breakdown *</label>
                             <textarea
                                 id="description"
                                 name="description"
@@ -233,7 +233,7 @@ const EditPage = () => {
 
                         {selectedCategory === 'Workouts' ? (
                             <div className="form-group">
-                                <label htmlFor="workout_name">Exercise Name</label>
+                                <label htmlFor="workout_name">Exercise Name *</label>
                                 <input
                                     type="text"
                                     id="workout_name"
@@ -245,7 +245,7 @@ const EditPage = () => {
                             </div>
                         ) : (
                             <div className="form-group">
-                                <label htmlFor="image">Image URL (Optional)</label>
+                                <label htmlFor="image">Image URL</label>
                                 <input
                                     type="text"
                                     id="image"
@@ -258,7 +258,7 @@ const EditPage = () => {
                         )}
 
                         <div className="form-group">
-                            <label htmlFor="password">Access Code</label>
+                            <label htmlFor="password">Access Code *</label>
                             <input
                                 type="text"
                                 id="password"
