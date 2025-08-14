@@ -1,87 +1,96 @@
-# Web Development Final Project - *FitnessFirst*
+# 🏋️‍♂️ FitnessFirst — Train Your Feed
 
-Submitted by: **Kelvin Mathew**
+**FitnessFirst** is the ultimate workout for your social feed — a gym-themed dynamic forum where fitness enthusiasts can share their sessions, track their progress, and get spotted by the community.  
 
-This web app: **FitnessFirst is a dynamic forum for fitness enthusiasts to connect and share their journey. Users can create posts across various categories like workouts, nutrition, and progress, fostering in-depth discussions through comments. The platform intelligently enhances posts by automatically fetching relevant images. If a user creates a workout post, it pulls an exercise image from the ExerciseDB API. For all other categories, it finds a high-quality photo from the Unsplash API based on the post's title, ensuring every thread is visually engaging.**
+Every post gets an automatic **visual pump**:
+- **Workouts** → Exercise images fetched from the **ExerciseDB API** based on the Session Name  
+- **Other Focuses** → High-quality background image from the **Unsplash API** based on the Session Name  
 
-Time spent: **17** hours spent in total
+---
 
-## Required Features
+## 🏗 Warm-Up — Building Your Session
+- Create new **sessions** with:
+  - **Session Name** (mandatory)
+  - Optional **Breakdown** (extra text)
+  - Optional external image URL (overridden for Workouts with ExerciseDB image)
+- Choose your **Focus** (e.g., Workouts, Nutrition, Progress)
+- Protect your session edits with an **Access Code** (pseudo-auth)
 
-The following **required** functionality is completed:
+---
 
+## 💪 Main Workout — Flexing in the Feed
+- **Home feed** displays:
+  - Session Name  
+  - Time posted  
+  - Current gains (likes)  
+- Card layout:
+  - Full-size background image with category color overlay  
+  - Text neatly overlaid  
+- Clicking a card opens the **Session Detail Page** with:
+  - Breakdown  
+  - Image  
+  - Spotters (comments)  
+- Community interaction:
+  - Leave spotter comments on sessions  
+  - Rack up gains (unlimited upvotes)  
+  - Repost previous sessions (original appears inline below with a link)
 
-- [x] **Web app includes a create form that allows the user to create posts**
-  - Form requires users to add a post title
-  - Forms should have the *option* for users to add: 
-    - additional textual content
-    - an image added as an external image URL
-- [x] **Web app includes a home feed displaying previously created posts**
-  - Web app must include home feed displaying previously created posts
-  - By default, each post on the posts feed should show only the post's:
-    - creation time
-    - title 
-    - upvotes count
-  - Clicking on a post should direct the user to a new page for the selected post
-- [x] **Users can view posts in different ways**
-  - Users can sort posts by either:
-    - creation time
-    - upvotes count
-  - Users can search for posts by title
-- [x] **Users can interact with each post in different ways**
-  - The app includes a separate post page for each created post when clicked, where any additional information is shown, including:
-    - content
-    - image
-    - comments
-  - Users can leave comments underneath a post on the post page
-  - Each post includes an upvote button on the post page. 
-    - Each click increases the post's upvotes count by one
-    - Users can upvote any post any number of times
+---
 
-- [x] **A post that a user previously created can be edited or deleted from its post pages**
-  - After a user creates a new post, they can go back and edit the post
-  - A previously created post can be deleted from its post page
+## 🏋️‍♀️ Accessories — Flex, Search & Filter
+- **Flex By**:
+  - Fresh Pumps (newest sessions)
+  - Most Reps (most gains)  
+- **Focus Filter**:
+  - Always-visible custom-styled dropdown menu for category selection  
+- **Search Bar**:
+  - Expanding search for Session Name only
 
-The following **optional** features are implemented:
+---
 
+## 🎨 Aesthetic Gains — Styling & UX
+- Black-and-white global theme with custom fonts  
+- Category-specific color overlays on background images  
+- **Custom Font Awesome icons** throughout  
+- Fully styled dropdown menu for Focus selection  
+- Gym-themed loading animation — a **rotating weight plate**
 
-- [x] Web app implements pseudo-authentication
-  - Users can only edit and delete posts or delete comments by entering the secret key, which is set by the user during post creation
-  - **or** upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them
-  - For both options, only the original user author of a post can update or delete it
-- [x] Users can repost a previous post by referencing its post ID. On the post page of the new post
-  - Users can repost a previous post by referencing its post ID
-  - On the post page of the new post, the referenced post is displayed and linked, creating a thread
-- [x] Users can customize the interface
-  - e.g., selecting the color scheme or showing the content and image of each post on the home feed
-- [x] Users can add more characterics to their posts
-  - Users can share and view web videos
-  - Users can set flags such as "Question" or "Opinion" while creating a post
-  - Users can filter posts by flags on the home feed
-  - Users can upload images directly from their local machine as an image file
-- [x] Web app displays a loading animation whenever data is being fetched
+---
 
-The following **additional** features are implemented:
+## 🤖 Automatic Spotters — API Integration
+- **ExerciseDB API**: Fetches exercise images for Workout sessions  
+- **Unsplash API**: Fetches images for all other Focuses  
 
-* [x] API for exercise and title based image fetching
-* [x] Custom icons
-* [x] Custom dropdown menu with complete styling
-* [x] Expanding search bar
+---
 
-## Video Walkthrough
+## 🗺 Routes
+- `/` → Home feed with Flex controls, Focus filter, and search  
+- `/post/:id` → Session detail with breakdown, image, spotters, gains, edit/delete/repost  
+- `/create` → New session creation form  
+- `*` → 404 page  
 
-Here's a walkthrough of implemented user stories:
+---
 
+## 🖼 Preview
+
+> **Walkthrough GIF**  
 <img src='./Walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with ...  
-[Kap](https://getkap.co/) for macOS
+GIF created with [Kap](https://getkap.co/) for macOS  
 
-## Notes
+---
 
-Implementing a secure route based pseudo-authentication was
+## 🛠 Built With
+- React (JSX)  
+- JavaScript (ES6+)  
+- HTML5 / CSS3  
+- [ExerciseDB API](https://exercisedb.io/)  
+- [Unsplash API](https://unsplash.com/developers)  
+- [Font Awesome](https://fontawesome.com/)  
 
-## License
+---
+
+## 📜 License
 
     Copyright [2025] [Kelvin Mathew]
 
