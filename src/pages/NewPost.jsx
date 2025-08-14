@@ -237,7 +237,7 @@ const NewPost = () => {
                         </div>
                     ) : (
                         <div className="form-group">
-                            <label htmlFor="image_url">Image URL (Optional)</label>
+                            <label htmlFor="image_url">Image URL</label>
                             <input
                                 type="text"
                                 id="image_url"

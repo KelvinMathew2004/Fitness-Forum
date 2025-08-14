@@ -6,6 +6,13 @@
 @media (max-width: 573px) {
   .main-content {
     margin-top: 140px;
-    padding: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
+  }
+  .main-content .HomePage {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
